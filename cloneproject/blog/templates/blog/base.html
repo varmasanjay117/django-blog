@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+{%load staticfiles%}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+    <!--bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  {% comment %} medium style editor {% endcomment %}
+  <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+  {% comment %}  custom css{% endcomment %}
+  <link rel="stylesheet" href="{%static 'css/blog.css'%}">
+
+
+
+{% comment %} font {% endcomment %}
+<link href="https://fonts.googleapis.com/css?family=Merriweather|Oswald" rel="stylesheet">
+
+  </head>
+  <body>
+{% comment %} navbar {% endcomment %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="{%url 'post_list'%}" >My Blog</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href={%url 'about'%}>About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.github.com">Github</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.linkedin.com" >linkedin</a>
+      </li>
+
+    </ul>
+      <ul class="nav navbar-nav navbar-right" class="navbar-nav">
+          {%if user.is_authenticated%}
+            <li class="nav-item">
+              <a class="nav-link" href="{%url 'post_view'%}">new post</a>
+            </li>
+            <li>
+              <a href="{%url 'post_draft_list'%}" class="nav-link">draft</a>
+            </li>
+            <li>
+              <a href="{%url 'logout'%}"><span class="glyphicon glyphicon-user"></span>logout</a>
+              </li>
+              <li>
+                <a class="btn btn-success">welcome :{{ user.username }}</a>
+              </li>
+          {%else%}
+              <li>
+                <a href="{%url 'login'%}" class="nav navbar-nav navbar-right"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{%url 'signup'%}" ><span class="glyphicon glyphicon-pencil"></span>register</a>
+              </li>
+              {%endif%}
+
+    </ul>
+  </div>
+</nav>
+{% comment %} navbar {% endcomment %}
+{% comment %} <nav class="navbar navbar-default techfont custom-navbar">
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li><a href="{%url 'post_list'%}" class="navbar-brand bigbrand">my blog</a></li>
+      <li><a href="{%url 'about'%}" >About</a></li>
+      <li><a href="https://www.github.com">github</a></li>
+      <li><a href="https://www.linkedin.com">linkden</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      {%if user.is_authenticated%}
+      <li>
+        <a href="{%url 'post_view'%}">new post</a>
+      </li>
+      <li>
+        <a href="{%url 'post_draft_list'%}">draft</a>
+      </li>
+      <li>
+        <a href="{%url 'logout'%}">logout</a>
+      </li>
+      <li>
+        <a >welcome :{{ user.username }}</a>
+      </li>
+        {%else%}
+        <li>
+          <a href="{%url 'login'%}" class="nav navbar-right">login</a>
+        </li>
+      {%endif%}
+
+    </ul>
+  </div>
+
+</nav> {% endcomment %}
+<div class="content container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="blog_posts">
+        {%block content%}
+        {%endblock%}
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+  </body>
+
+</html>
